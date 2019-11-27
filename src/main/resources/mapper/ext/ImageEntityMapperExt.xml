@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yiseven.zhoudaxiao.mapper.ext.ImageEntityMapperExt">
+
+    <delete id="deleteImageByProduct">
+        delete from image where productId = #{productId}
+    </delete>
+
+    <select id="queryCarousels" resultType="com.yiseven.zhoudaxiao.entity.ImageEntity">
+        select id,url,bucketKey,isCarousel,priority from image
+        where isCarousel = 1 order by priority desc
+        limit #{max}
+    </select>
+
+    <insert id="addImageBatch" parameterType="java.util.List">
+        INSERT INTO image (productId,url,bucketKey,isCarousel,isAvatar,priority)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.productId},#{item.url},#{item.bucketKey},#{item.isCarousel},#{item.isAvatar},#{item.priority})
+        </foreach>
+    </insert>
+
+    <select id="queryListByProduct" resultType="com.yiseven.zhoudaxiao.entity.ImageEntity">
+        select id, productId, url,bucketKey, isCarousel, isAvatar, priority
+        from image
+        where productId = #{productId,jdbcType=INTEGER}
+    </select>
+</mapper>

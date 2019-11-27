@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yiseven.zhoudaxiao.mapper.auto.ProductEntityMapper">
+    <resultMap id="BaseResultMap" type="com.yiseven.zhoudaxiao.entity.ProductEntity">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="categoryId" property="categoryId" jdbcType="INTEGER"/>
+        <result column="brandId" property="brandId" jdbcType="INTEGER"/>
+        <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
+        <result column="originalPrice" property="originalPrice" jdbcType="DOUBLE"/>
+        <result column="discountPrice" property="discountPrice" jdbcType="DOUBLE"/>
+        <result column="agentPrice" property="agentPrice" jdbcType="DOUBLE"/>
+        <result column="secondAgentPrice" property="secondAgentPrice" jdbcType="DOUBLE"/>
+        <result column="priority" property="priority" jdbcType="INTEGER"/>
+        <result column="pageviews" property="pageviews" jdbcType="INTEGER"/>
+        <result column="like" property="like" jdbcType="INTEGER"/>
+        <result column="totalSales" property="totalSales" jdbcType="INTEGER"/>
+        <result column="monthlySales" property="monthlySales" jdbcType="INTEGER"/>
+        <result column="freight" property="freight" jdbcType="DOUBLE"/>
+        <result column="stock" property="stock" jdbcType="INTEGER"/>
+        <result column="isNew" property="isNew" jdbcType="INTEGER"/>
+        <result column="createBy" property="createBy" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="lastUpdateBy" property="lastUpdateBy" jdbcType="VARCHAR"/>
+        <result column="lastUpdateTime" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.yiseven.zhoudaxiao.entity.ProductEntity" extends="BaseResultMap">
+        <result column="detail" property="detail" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, `name`, categoryId, brandId, introduction, originalPrice, discountPrice, agentPrice,
+    secondAgentPrice, priority, pageviews, `like`, totalSales, monthlySales, freight, stock,
+    isNew, createBy, createTime, lastUpdateBy, lastUpdateTime
+  </sql>
+    <sql id="Blob_Column_List">
+    detail
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from product
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.yiseven.zhoudaxiao.entity.ProductEntity">
+    insert into product (id, `name`, categoryId,
+      brandId, introduction, originalPrice, 
+      discountPrice, agentPrice, secondAgentPrice, 
+      priority, pageviews, `like`,
+      totalSales, monthlySales, freight, 
+      stock, isNew, createBy, 
+      createTime, lastUpdateBy, lastUpdateTime, 
+      detail)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
+      #{brandId,jdbcType=INTEGER}, #{introduction,jdbcType=VARCHAR}, #{originalPrice,jdbcType=DOUBLE}, 
+      #{discountPrice,jdbcType=DOUBLE}, #{agentPrice,jdbcType=DOUBLE}, #{secondAgentPrice,jdbcType=DOUBLE}, 
+      #{priority,jdbcType=INTEGER}, #{pageviews,jdbcType=INTEGER}, #{like,jdbcType=INTEGER}, 
+      #{totalSales,jdbcType=INTEGER}, #{monthlySales,jdbcType=INTEGER}, #{freight,jdbcType=DOUBLE}, 
+      #{stock,jdbcType=INTEGER}, #{isNew,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{detail,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.yiseven.zhoudaxiao.entity.ProductEntity"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="categoryId != null">
+                categoryId,
+            </if>
+            <if test="brandId != null">
+                brandId,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+            <if test="originalPrice != null">
+                originalPrice,
+            </if>
+            <if test="discountPrice != null">
+                discountPrice,
+            </if>
+            <if test="agentPrice != null">
+                agentPrice,
+            </if>
+            <if test="secondAgentPrice != null">
+                secondAgentPrice,
+            </if>
+            <if test="priority != null">
+                priority,
+            </if>
+            <if test="pageviews != null">
+                pageviews,
+            </if>
+            <if test="like != null">
+                `like`,
+            </if>
+            <if test="totalSales != null">
+                totalSales,
+            </if>
+            <if test="monthlySales != null">
+                monthlySales,
+            </if>
+            <if test="freight != null">
+                freight,
+            </if>
+            <if test="stock != null">
+                stock,
+            </if>
+            <if test="isNew != null">
+                isNew,
+            </if>
+            <if test="createBy != null">
+                createBy,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="lastUpdateBy != null">
+                lastUpdateBy,
+            </if>
+            <if test="lastUpdateTime != null">
+                lastUpdateTime,
+            </if>
+            <if test="detail != null">
+                detail,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="brandId != null">
+                #{brandId,jdbcType=INTEGER},
+            </if>
+            <if test="introduction != null">
+                #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="originalPrice != null">
+                #{originalPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="discountPrice != null">
+                #{discountPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="agentPrice != null">
+                #{agentPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="secondAgentPrice != null">
+                #{secondAgentPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="priority != null">
+                #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="pageviews != null">
+                #{pageviews,jdbcType=INTEGER},
+            </if>
+            <if test="like != null">
+                #{like,jdbcType=INTEGER},
+            </if>
+            <if test="totalSales != null">
+                #{totalSales,jdbcType=INTEGER},
+            </if>
+            <if test="monthlySales != null">
+                #{monthlySales,jdbcType=INTEGER},
+            </if>
+            <if test="freight != null">
+                #{freight,jdbcType=DOUBLE},
+            </if>
+            <if test="stock != null">
+                #{stock,jdbcType=INTEGER},
+            </if>
+            <if test="isNew != null">
+                #{isNew,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateBy != null">
+                #{lastUpdateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateTime != null">
+                #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="detail != null">
+                #{detail,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yiseven.zhoudaxiao.entity.ProductEntity">
+        update product
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryId != null">
+                categoryId = #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="brandId != null">
+                brandId = #{brandId,jdbcType=INTEGER},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="originalPrice != null">
+                originalPrice = #{originalPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="discountPrice != null">
+                discountPrice = #{discountPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="agentPrice != null">
+                agentPrice = #{agentPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="secondAgentPrice != null">
+                secondAgentPrice = #{secondAgentPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="priority != null">
+                priority = #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="pageviews != null">
+                pageviews = #{pageviews,jdbcType=INTEGER},
+            </if>
+            <if test="like != null">
+                `like` = #{like,jdbcType=INTEGER},
+            </if>
+            <if test="totalSales != null">
+                totalSales = #{totalSales,jdbcType=INTEGER},
+            </if>
+            <if test="monthlySales != null">
+                monthlySales = #{monthlySales,jdbcType=INTEGER},
+            </if>
+            <if test="freight != null">
+                freight = #{freight,jdbcType=DOUBLE},
+            </if>
+            <if test="stock != null">
+                stock = #{stock,jdbcType=INTEGER},
+            </if>
+            <if test="isNew != null">
+                isNew = #{isNew,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                createBy = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateBy != null">
+                lastUpdateBy = #{lastUpdateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateTime != null">
+                lastUpdateTime = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="detail != null">
+                detail = #{detail,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
