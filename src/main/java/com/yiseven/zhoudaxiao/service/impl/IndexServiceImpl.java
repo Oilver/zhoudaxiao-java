@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.UUID;
 
 /**
@@ -28,7 +29,7 @@ public class IndexServiceImpl implements IndexService {
     @Autowired
     private RedisUtil redisUtil;
 
-    @Autowired
+    @Resource
     private UserEntityMapperExt userEntityMapperExt;
 
     @Override
@@ -45,6 +46,7 @@ public class IndexServiceImpl implements IndexService {
             if (Const.ACTIVE_STATUS != userEntity.getStatus()) {
                 return Response.createByErrorMessage("该账户还在审核...");
             }
+            //同一个账号不同机器可同时登录
             String token = UUID.randomUUID().toString();
             redisUtil.set(token, userEntity, SEVEN_DAY);
             log.info("用户 {} 登录成功,token: {}", userEntity.getUsername(), token);
