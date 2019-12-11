@@ -6,11 +6,22 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author hdeng
  */
 @Configuration
 public class WebSecurityConfig implements WebMvcConfigurer {
+    private static final List<String> EXCLUDE_APIS = Arrays.asList(
+            "/login", "/user/add",
+            "/category/queryAll",
+            "/image/queryCarousels",
+            "/image/queryListByProduct",
+            "/product/query",
+            "/product/queryProductList"
+    );
 
     @Autowired
     UserValidInterceptor userValidInterceptor;
@@ -21,8 +32,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration registration1 = registry.addInterceptor(userValidInterceptor);
         registration1.addPathPatterns("/**");
-        registration1.excludePathPatterns("/login", "/user/add")
-                .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
+        registration1.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**")
+                .excludePathPatterns(EXCLUDE_APIS);
 
 //        InterceptorRegistration registration2 = registry.addInterceptor(addRecordValidInterceptor);
 //        registration2.addPathPatterns("/record/add");
