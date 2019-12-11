@@ -1,0 +1,23 @@
+server:
+  port: 8889
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://122.51.26.11:3306/zhoudaxiao?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: Dengjinhui123!
+  redis:
+    host: 122.51.26.11
+    port: 6369
+    timeout: 5000
+logging:
+  config: classpath:log4j-live.xml
+
+qcloud:
+  secretId: AKIDY2Ocu6RkBIEtIXvCcmhOoxwf8KFyZgdS
+  secretKey: h9KEuMXTFl23qOhjU6anjP4WidPvBC0a
+  region: ap-guangzhou
+  bucketName: yiseven-1300292849
+  url: https://yiseven-1300292849.cos.ap-guangzhou.myqcloud.com/
