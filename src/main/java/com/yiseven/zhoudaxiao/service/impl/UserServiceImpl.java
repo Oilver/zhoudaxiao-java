@@ -34,22 +34,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response addUser(UserRequest userRequest) {
+        //1.是否已注册
+        UserEntity queryResult = userEntityMapperExt.queryUser(userRequest.getPhone());
+        if (queryResult != null) {
+            return Response.createByErrorMessage("该手机已经被注册");
+        }
         UserEntity userEntity = new UserEntity();
         modelMapper.map(userRequest, userEntity);
         userEntity.setStatus(Const.REVIEW_STATUS);
         userEntity.setCreateDate(new Date());
         userEntity.setLastUpdateDate(new Date());
         userEntity.setPassword(MD5Utils.getMd5Simple(userEntity.getPassword()));
-        UserEntity queryResult = userEntityMapperExt.queryUser(userEntity.getPhone());
-        if (queryResult != null) {
-            return Response.createByErrorMessage("该手机已经被注册");
-        }
         int result = userEntityMapperExt.insertSelective(userEntity);
         if (Const.INSERT_ONE == result) {
             log.info("用户 {} 注册成功", userEntity.getUsername() + " " + userEntity.getPhone());
             return Response.createBySuccess();
         }
-        return Response.createByErrorMessage("插入数据失败");
+        return Response.createByErrorMessage("用户注册失败");
     }
 
     @Override
@@ -67,12 +68,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Response queryCurrentUser(HttpServletRequest request) {
-        UserEntity userEntity = (UserEntity) redisUtil.get(request.getHeader(Const.VALID_HEARER));
-        if (userEntity != null) {
-            return Response.createBySuccess(userEntity);
-        }
-        return Response.createBySuccess(userEntityMapperExt.queryUser(request.getHeader(Const.VALID_HEARER)));
+    public UserEntity queryCurrentUser(String token) {
+        return (UserEntity) redisUtil.get(token);
     }
 
     @Override

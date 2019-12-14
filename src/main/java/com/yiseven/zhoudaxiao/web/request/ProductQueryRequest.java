@@ -13,6 +13,15 @@ public class ProductQueryRequest {
 
     private Integer categoryId;
 
-    @NotNull
-    private Integer queryType;
+    private Integer isNew;
+
+    /**
+     * 根据什么排序
+     */
+    private String orderBy;
+
+    /**
+     * 降序还是升序
+     */
+    private String sortType;
 }

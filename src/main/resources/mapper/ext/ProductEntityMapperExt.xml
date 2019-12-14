@@ -11,32 +11,34 @@
         where p.id = #{id,jdbcType=INTEGER}
     </select>
 
-    <select id="queryTodayList" resultType="com.yiseven.zhoudaxiao.web.result.ProductResult">
-    select i.url as avatarUrl,p.id, p.`name`, p.categoryId, p.brandId, p.introduction, p.originalPrice, p.discountPrice,
-    p.agentPrice,p.secondAgentPrice, p.priority, p.pageviews, p.`like`, p.totalSales, p.monthlySales,
-    p.freight, p.stock,p.isNew, p.createBy, p.createTime, p.lastUpdateBy, p.lastUpdateTime,detail
-    from product p left join image i on i.productId = p.id and i.isAvatar = 1
-    where isNew = 1 order by priority desc
-    </select>
-
-    <select id="queryHotList" resultType="com.yiseven.zhoudaxiao.web.result.ProductResult">
-    select i.url as avatarUrl,p.id, p.`name`, p.categoryId, p.brandId, p.introduction, p.originalPrice, p.discountPrice,
-    p.agentPrice,p.secondAgentPrice, p.priority, p.pageviews, p.`like`, p.totalSales, p.monthlySales,
-    p.freight, p.stock,p.isNew, p.createBy, p.createTime, p.lastUpdateBy, p.lastUpdateTime,detail
-    from product p left join image i on i.productId = p.id and i.isAvatar = 1
-    order by pageviews desc
-    </select>
-
-    <select id="queryListByCategory" resultType="com.yiseven.zhoudaxiao.web.result.ProductResult">
-    select i.url as avatarUrl,p.id, p.`name`, p.categoryId, p.brandId, p.introduction, p.originalPrice, p.discountPrice,
-    p.agentPrice,p.secondAgentPrice, p.priority, p.pageviews, p.`like`, p.totalSales, p.monthlySales,
-    p.freight, p.stock,p.isNew, p.createBy, p.createTime, p.lastUpdateBy, p.lastUpdateTime,detail
-    from product p left join image i on i.productId = p.id and i.isAvatar = 1
-    where categoryId = #{categoryId}
-    order by pageviews desc
+    <select id="queryProductList" resultType="com.yiseven.zhoudaxiao.web.result.ProductResult">
+        select i.url as avatarUrl,p.id, p.`name`, p.categoryId, p.brandId, p.introduction, p.originalPrice,
+        p.discountPrice,
+        p.agentPrice,p.secondAgentPrice, p.priority, p.pageviews, p.`like`, p.totalSales, p.monthlySales,
+        p.freight, p.stock,p.isNew, p.createBy, p.createTime, p.lastUpdateBy, p.lastUpdateTime,detail
+        from product p left join image i on i.productId = p.id and i.isAvatar = 1
+        <where>
+            <if test="isNew != null">
+                isNew = #{isNew}
+            </if>
+            <if test="categoryId != null">
+                AND categoryId = #{categoryId}
+            </if>
+        </where>
+        <if test="orderBySortType != null">
+            order by ${orderBySortType}
+        </if>
     </select>
 
     <select id="checkIsExist" resultType="java.lang.Integer">
         select count(1) from product where `name` = #{name}
     </select>
+
+    <update id="updateCategoryBatch">
+        update product set categoryId = #{categoryId}
+        where id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
 </mapper>

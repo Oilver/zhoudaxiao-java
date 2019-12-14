@@ -1,6 +1,8 @@
 package com.yiseven.zhoudaxiao.web.controller;
 
+import com.yiseven.zhoudaxiao.common.Const.Const;
 import com.yiseven.zhoudaxiao.common.response.Response;
+import com.yiseven.zhoudaxiao.common.response.ResponseCode;
 import com.yiseven.zhoudaxiao.entity.UserEntity;
 import com.yiseven.zhoudaxiao.service.UserService;
 import com.yiseven.zhoudaxiao.web.request.UserRequest;
@@ -45,6 +47,10 @@ public class UserController {
 
     @PostMapping("queryCurrentUser")
     public Response queryCurrentUser(HttpServletRequest request) {
-        return userService.queryCurrentUser(request);
+        UserEntity userEntity = userService.queryCurrentUser(request.getHeader(Const.VALID_HEARER));
+        if (userEntity == null) {
+            return Response.createByErrorCode(ResponseCode.NEED_LOGIN);
+        }
+        return Response.createBySuccess(userEntity);
     }
 }

@@ -35,4 +35,7 @@ public class Const {
 
     public static final int PAGE_SIZE_DEFAULT = 6;
 
+    public static final String ORDER_BY_DEFAULT = "pageviews";
+
+    public static final String SORT_TYPE_DEFAULT = "desc";
 }

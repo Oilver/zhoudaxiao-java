@@ -3,6 +3,7 @@ package com.yiseven.zhoudaxiao.mapper.ext;
 import com.yiseven.zhoudaxiao.mapper.auto.ProductEntityMapper;
 import com.yiseven.zhoudaxiao.web.result.ProductResult;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,23 +12,14 @@ public interface ProductEntityMapperExt extends ProductEntityMapper {
 
     ProductResult query(Integer id);
 
-    /**
-     * 今日推荐
-     *
-     * @return
-     */
-    List<ProductResult> queryTodayList();
-
-    /**
-     * 爆款推荐
-     *
-     * @return
-     */
-    List<ProductResult> queryHotList();
-
-
-    List<ProductResult> queryListByCategory(Integer categoryId);
+    List<ProductResult> queryProductList(@Param("categoryId") Integer categoryId,
+                                         @Param("isNew") Integer isNew,
+                                         @Param("orderBySortType") String orderBySortType);
 
     int checkIsExist(String name);
 
+    /**
+     * 将一批商品置位其他类别
+     */
+    void updateCategoryBatch(@Param("categoryId") Integer categoryId, @Param("ids") List<Integer> ids);
 }

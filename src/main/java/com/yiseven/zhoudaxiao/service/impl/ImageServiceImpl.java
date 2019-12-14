@@ -73,7 +73,6 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    @Transactional
     public Response deleteImage(Integer id) {
         ImageEntity imageEntity = imageEntityMapperExt.selectByPrimaryKey(id);
         qCloudUtil.deleteImageInQCloud(imageEntity.getBucketKey());
@@ -107,13 +106,12 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Boolean addProductImagesAfterUpload(ImageRequest imageRequest) {
         List<String> keys = imageRequest.getKeys();
-        if (keys == null || keys.isEmpty()) {
-            return true;
-        }
+        ExceptionThrow.cast(ResponseCode.PARAM_WRONG, keys == null || keys.isEmpty());
         List<ImageEntity> imageEntityList = new ArrayList<>();
         if (null == imageRequest.getProductId()) {
             ExceptionThrow.cast(ResponseCode.NULL_EXCEPTION, true);
         }
+
         for (int i = 0; i < keys.size(); i++) {
             ImageEntity imageEntity = new ImageEntity();
             imageEntity.setProductId(imageRequest.getProductId());
@@ -122,9 +120,8 @@ public class ImageServiceImpl implements ImageService {
             imageEntity.setIsCarousel(0);
             imageEntity.setPriority(keys.size() - i);
             //如果不指定头像的key，默认为第一张图片
-            if (i == 0 && StringUtils.isBlank(imageRequest.getAvatarKey())) {
-                imageEntity.setIsAvatar(1);
-            } else if (StringUtils.isNotBlank(imageRequest.getAvatarKey()) && imageRequest.getAvatarKey().equals(keys.get(i))) {
+            if (i == 0 && StringUtils.isBlank(imageRequest.getAvatarKey())
+                    || StringUtils.isNotBlank(imageRequest.getAvatarKey()) && imageRequest.getAvatarKey().equals(keys.get(i))) {
                 imageEntity.setIsAvatar(1);
             } else {
                 imageEntity.setIsAvatar(0);
@@ -136,6 +133,11 @@ public class ImageServiceImpl implements ImageService {
         return true;
     }
 
+    /**
+     * 查询轮播图列表，并且刷新redis中轮播图的缓存
+     *
+     * @return
+     */
     private List resetCarouselInRedis() {
         List carouselList = imageEntityMapperExt.queryCarousels(CAROUSEL_NUMBER_MAX);
         redisUtil.set(CAROUSEL_CACHE, carouselList, 60 * 60 * 24 * 5);
@@ -152,9 +154,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    @Transactional
     public Response uploadCarousels(MultipartFile multipartFile) throws IOException {
-        List list = imageEntityMapperExt.queryCarousels(100);
+        List list = imageEntityMapperExt.queryCarousels(7);
         if (list.size() >= CAROUSEL_NUMBER_MAX) {
             return Response.createByErrorMessage("轮播图的数量已满6张");
         }
@@ -173,7 +174,6 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    @Transactional
     public Response updateCarousels(ImageEntity imageEntity) {
         updateImage(imageEntity);
         resetCarouselInRedis();
@@ -181,7 +181,6 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    @Transactional
     public Response deleteCarousels(Integer id) {
         deleteImage(id);
         resetCarouselInRedis();

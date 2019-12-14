@@ -8,8 +8,10 @@ import com.yiseven.zhoudaxiao.common.exception.ExceptionThrow;
 import com.yiseven.zhoudaxiao.common.response.ResponseCode;
 import com.yiseven.zhoudaxiao.common.util.QCloudUtil;
 import com.yiseven.zhoudaxiao.entity.ImageEntity;
+import com.yiseven.zhoudaxiao.entity.UserEntity;
 import com.yiseven.zhoudaxiao.service.CommonService;
 import com.yiseven.zhoudaxiao.service.ImageService;
+import com.yiseven.zhoudaxiao.service.UserService;
 import com.yiseven.zhoudaxiao.web.request.ImageRequest;
 import com.yiseven.zhoudaxiao.web.request.ProductInsertRequest;
 import com.yiseven.zhoudaxiao.common.response.Response;
@@ -20,6 +22,7 @@ import com.yiseven.zhoudaxiao.web.request.ProductQueryRequest;
 import com.yiseven.zhoudaxiao.web.request.ProductUpdateRequest;
 import com.yiseven.zhoudaxiao.web.result.ProductResult;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +50,8 @@ public class ProductServiceImpl implements ProductService {
     ExecutorService executorPool;
     @Autowired
     QCloudUtil qCloudUtil;
+    @Autowired
+    UserService userService;
 
     @Override
     @Transactional
@@ -72,7 +77,9 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public Response updateProduct(ProductUpdateRequest productUpdateRequest, String token) {
         productUpdateRequest.setLastUpdateTime(new Date());
-        //        productRequest.setLastUpdateBy(user.getUsername());
+        UserEntity user = userService.queryCurrentUser(token);
+        productUpdateRequest.setLastUpdateBy(user.getUsername());
+
         ProductEntity productEntity = new ProductEntity();
         modelMapper.map(productUpdateRequest, productEntity);
         int resultCount = productEntityMapperExt.updateByPrimaryKeySelective(productEntity);
@@ -108,10 +115,10 @@ public class ProductServiceImpl implements ProductService {
         productInsertRequest.setPageviews(0);
         productInsertRequest.setCreateTime(new Date());
         productInsertRequest.setLastUpdateTime(new Date());
-        // TODO: 2019/11/16
-//        UserEntity user = commonService.getUserFromRedisByToken(token);
-//        productRequest.setCreateBy(user.getUsername());
-//        productRequest.setLastUpdateBy(user.getUsername());
+        UserEntity user = userService.queryCurrentUser(token);
+        productInsertRequest.setCreateBy(user.getUsername());
+        productInsertRequest.setLastUpdateBy(user.getUsername());
+
         ProductEntity productEntity = new ProductEntity();
         modelMapper.map(productInsertRequest, productEntity);
         //1.先插入数据
@@ -153,29 +160,19 @@ public class ProductServiceImpl implements ProductService {
                 break;
             }
         }
-        //如果没有设置头像，默认取第一张图片为头像
-        if (null == productResult.getAvatarUrl() && !imageEntityList.isEmpty()) {
-            productResult.setAvatarUrl(imageEntityList.get(0).getUrl());
-        }
         return Response.createBySuccess(productResult);
     }
 
     @Override
     public Response queryProductList(ProductQueryRequest productQueryRequest) {
+        //参数空值处理,默认为第1页，6条，pageviews desc排序
         PageHelper.startPage(null == productQueryRequest.getPageNum() ? Const.PAGE_NUM_DEFAULT : productQueryRequest.getPageNum(),
                 null == productQueryRequest.getPageSize() ? Const.PAGE_SIZE_DEFAULT : productQueryRequest.getPageSize());
-
-        List<ProductResult> list = new ArrayList<>();
-        if (QueryTypeEnum.BY_TODAY.getKey().equals(productQueryRequest.getQueryType())) {
-            list = productEntityMapperExt.queryTodayList();
-        } else if (QueryTypeEnum.BY_PAGE_VIEWS.getKey().equals(productQueryRequest.getQueryType())) {
-            list = productEntityMapperExt.queryHotList();
-        } else if (QueryTypeEnum.BY_CATEGORY.getKey().equals(productQueryRequest.getQueryType())) {
-            if (null == productQueryRequest.getCategoryId()) {
-                return Response.createByErrorCode(ResponseCode.PARAM_WRONG);
-            }
-            list = productEntityMapperExt.queryListByCategory(productQueryRequest.getCategoryId());
-        }
+        String orderBy = StringUtils.isBlank(productQueryRequest.getOrderBy()) ? Const.ORDER_BY_DEFAULT : productQueryRequest.getOrderBy();
+        String sortType = StringUtils.isBlank(productQueryRequest.getSortType()) ? Const.SORT_TYPE_DEFAULT : productQueryRequest.getSortType();
+        //So
+        String orderBySortType = orderBy + " " + sortType;
+        List<ProductResult> list = productEntityMapperExt.queryProductList(productQueryRequest.getCategoryId(), productQueryRequest.getIsNew(), orderBySortType);
         PageInfo<ProductResult> pageInfo = new PageInfo<>(list);
         return Response.createBySuccess(pageInfo);
     }

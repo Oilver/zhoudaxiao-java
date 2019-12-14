@@ -18,7 +18,7 @@ public interface UserService {
 
     Response queryUser(String phone);
 
-    Response queryCurrentUser(HttpServletRequest request);
+    UserEntity queryCurrentUser(String token);
 
     Response queryUserList();
 

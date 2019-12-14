@@ -12,12 +12,4 @@ public class CommonServiceImpl implements CommonService {
     @Autowired
     RedisUtil redisUtil;
 
-    @Override
-    public UserEntity getUserFromRedisByToken(String token) {
-        Object object = redisUtil.get(token);
-        if (object == null) {
-            return null;
-        }
-        return (UserEntity) object;
-    }
 }
