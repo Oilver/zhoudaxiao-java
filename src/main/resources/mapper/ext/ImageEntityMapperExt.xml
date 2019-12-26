@@ -25,4 +25,16 @@
         from image
         where productId = #{productId,jdbcType=INTEGER}
     </select>
+
+    <select id="queryAll" resultType="com.yiseven.zhoudaxiao.entity.ImageEntity">
+        select id, productId, url,bucketKey, isCarousel
+        from image
+    </select>
+
+    <delete id="deleteBatch">
+        delete from image where id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

@@ -64,10 +64,7 @@ public class ProductServiceImpl implements ProductService {
         productEntityMapperExt.deleteByPrimaryKey(id);
         imageService.deleteImageByProduct(id);
         executorPool.execute(() -> {
-            for (String key : keys) {
-                qCloudUtil.deleteImageInQCloud(key);
-                log.info("文件删除成功,key: " + key);
-            }
+            qCloudUtil.deleteImageBatchInQCloud(keys);
         });
         log.info("删除商品成功，id：{}", id);
         return Response.createBySuccess("删除商品成功，id：" + id);

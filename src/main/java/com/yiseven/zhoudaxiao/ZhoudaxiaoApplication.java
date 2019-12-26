@@ -3,6 +3,8 @@ package com.yiseven.zhoudaxiao;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -19,6 +21,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableSwagger2
+@EnableScheduling
 public class ZhoudaxiaoApplication {
 
     public static void main(String[] args) {

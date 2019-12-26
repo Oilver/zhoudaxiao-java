@@ -17,7 +17,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -38,8 +37,10 @@ public class ImageServiceImpl implements ImageService {
 
     @Autowired
     QCloudUtil qCloudUtil;
+
     @Resource
     ImageEntityMapperExt imageEntityMapperExt;
+
     @Autowired
     RedisUtil redisUtil;
 

@@ -3,6 +3,8 @@ package com.yiseven.zhoudaxiao.common.util;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
+import com.qcloud.cos.model.DeleteObjectsRequest;
+import com.qcloud.cos.model.ObjectListing;
 import com.qcloud.cos.model.ObjectMetadata;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.region.Region;
@@ -13,6 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @Slf4j
@@ -46,5 +50,23 @@ public class QCloudUtil {
     public void deleteImageInQCloud(String key) {
         cosClient.deleteObject(bucketName, key);
         log.info("文件删除成功，key： {}", key);
+    }
+
+    public void deleteImageBatchInQCloud(List<String> keys) {
+        DeleteObjectsRequest deleteObjectsRequest = new DeleteObjectsRequest(bucketName);
+        List<DeleteObjectsRequest.KeyVersion> keyVersions = new ArrayList<>();
+        keys.forEach(item -> keyVersions.add(new DeleteObjectsRequest.KeyVersion(item)));
+        deleteObjectsRequest.setKeys(keyVersions);
+        cosClient.deleteObjects(deleteObjectsRequest);
+        log.info("文件批量删除成功，keys： {}", keys);
+    }
+
+    public List<String> queryAllBucketKeys() {
+        ObjectListing objectListing = cosClient.listObjects(bucketName);
+        List<String> bucketKeys = new ArrayList<>();
+        objectListing.getObjectSummaries().forEach(item -> {
+            bucketKeys.add(item.getKey());
+        });
+        return bucketKeys;
     }
 }

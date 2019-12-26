@@ -19,5 +19,5 @@ qcloud:
   secretId: AKIDY2Ocu6RkBIEtIXvCcmhOoxwf8KFyZgdS
   secretKey: h9KEuMXTFl23qOhjU6anjP4WidPvBC0a
   region: ap-guangzhou
-  bucketName: yiseven-1300292849
-  url: https://yiseven-1300292849.cos.ap-guangzhou.myqcloud.com/
+  bucketName: yiseven-dev-1300292849
+  url: https://yiseven-dev-1300292849.cos.ap-guangzhou.myqcloud.com/
