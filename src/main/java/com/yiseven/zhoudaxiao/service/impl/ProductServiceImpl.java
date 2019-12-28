@@ -3,21 +3,20 @@ package com.yiseven.zhoudaxiao.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yiseven.zhoudaxiao.common.Const.Const;
-import com.yiseven.zhoudaxiao.common.enums.QueryTypeEnum;
 import com.yiseven.zhoudaxiao.common.exception.ExceptionThrow;
+import com.yiseven.zhoudaxiao.common.response.Response;
 import com.yiseven.zhoudaxiao.common.response.ResponseCode;
 import com.yiseven.zhoudaxiao.common.util.QCloudUtil;
 import com.yiseven.zhoudaxiao.entity.ImageEntity;
+import com.yiseven.zhoudaxiao.entity.ProductEntity;
 import com.yiseven.zhoudaxiao.entity.UserEntity;
+import com.yiseven.zhoudaxiao.mapper.ext.ProductEntityMapperExt;
 import com.yiseven.zhoudaxiao.service.CommonService;
 import com.yiseven.zhoudaxiao.service.ImageService;
+import com.yiseven.zhoudaxiao.service.ProductService;
 import com.yiseven.zhoudaxiao.service.UserService;
 import com.yiseven.zhoudaxiao.web.request.ImageRequest;
 import com.yiseven.zhoudaxiao.web.request.ProductInsertRequest;
-import com.yiseven.zhoudaxiao.common.response.Response;
-import com.yiseven.zhoudaxiao.entity.ProductEntity;
-import com.yiseven.zhoudaxiao.mapper.ext.ProductEntityMapperExt;
-import com.yiseven.zhoudaxiao.service.ProductService;
 import com.yiseven.zhoudaxiao.web.request.ProductQueryRequest;
 import com.yiseven.zhoudaxiao.web.request.ProductUpdateRequest;
 import com.yiseven.zhoudaxiao.web.result.ProductResult;
@@ -163,8 +162,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Response queryProductList(ProductQueryRequest productQueryRequest) {
         //参数空值处理,默认为第1页，6条，pageviews desc排序
-        PageHelper.startPage(null == productQueryRequest.getPageNum() ? Const.PAGE_NUM_DEFAULT : productQueryRequest.getPageNum(),
-                null == productQueryRequest.getPageSize() ? Const.PAGE_SIZE_DEFAULT : productQueryRequest.getPageSize());
+        if (productQueryRequest.getShowAll() == null || !productQueryRequest.getShowAll()) {
+            PageHelper.startPage(null == productQueryRequest.getPageNum() ? Const.PAGE_NUM_DEFAULT : productQueryRequest.getPageNum(),
+                    null == productQueryRequest.getPageSize() ? Const.PAGE_SIZE_DEFAULT : productQueryRequest.getPageSize());
+        }
         String orderBy = StringUtils.isBlank(productQueryRequest.getOrderBy()) ? Const.ORDER_BY_DEFAULT : productQueryRequest.getOrderBy();
         String sortType = StringUtils.isBlank(productQueryRequest.getSortType()) ? Const.SORT_TYPE_DEFAULT : productQueryRequest.getSortType();
         //So
