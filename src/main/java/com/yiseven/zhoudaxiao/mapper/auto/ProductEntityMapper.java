@@ -14,4 +14,8 @@ public interface ProductEntityMapper {
     ProductEntity selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(ProductEntity record);
+
+    int updateByPrimaryKeyWithBLOBs(ProductEntity record);
+
+    int updateByPrimaryKey(ProductEntity record);
 }

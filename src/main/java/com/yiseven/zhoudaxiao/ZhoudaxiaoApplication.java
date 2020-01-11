@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -32,7 +31,7 @@ public class ZhoudaxiaoApplication {
     public Docket createRestApi() {
         ParameterBuilder headers = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<>();
-        headers.name("token").description("user token")
+        headers.name("token").description("person token")
                 .modelRef(new ModelRef("string")).parameterType("header")
                 .required(false).build(); //header中的phone参数非必填，传空也可以
         //根据每个方法名也知道当前方法在设置什么参数

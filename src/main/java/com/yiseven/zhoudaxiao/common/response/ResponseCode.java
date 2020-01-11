@@ -23,7 +23,7 @@ public enum ResponseCode {
     RESULT_NULL(600, "结果为空"),
     DATABASE_ERROR(601, "数据库出错"),
     PARAM_WRONG(602, "参数有误"),
-    USER_WRONG(603, "账号异常"),
+    PERSON_WRONG(603, "账号异常"),
     NO_POWER(604, "没有权利"),
     REDIS_WRONG(605, "Redis操作失败"),
     PRODUCT_ERROR(606, "商品信息有误");

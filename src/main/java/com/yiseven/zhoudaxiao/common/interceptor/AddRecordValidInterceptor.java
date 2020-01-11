@@ -5,7 +5,7 @@ import com.yiseven.zhoudaxiao.common.Const.Const;
 import com.yiseven.zhoudaxiao.common.response.Response;
 import com.yiseven.zhoudaxiao.common.response.ResponseCode;
 import com.yiseven.zhoudaxiao.common.util.RedisUtil;
-import com.yiseven.zhoudaxiao.entity.UserEntity;
+import com.yiseven.zhoudaxiao.entity.PersonEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -25,8 +25,8 @@ public class AddRecordValidInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        UserEntity userEntity = (UserEntity) redisUtil.get(request.getHeader(Const.VALID_HEARER));
-        if (userEntity.getRole() == Const.ADMIN) {
+        PersonEntity personEntity = (PersonEntity) redisUtil.get(request.getHeader(Const.VALID_HEARER));
+        if (personEntity.getRole() == Const.ADMIN) {
             return true;
         }
         noRight(response);

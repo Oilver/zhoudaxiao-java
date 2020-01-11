@@ -27,9 +27,9 @@ public class Const {
     public static final String PRODUCT = "product";
 
     /**
-     * 其他类别id为 999
+     * 其他类别id为 0
      */
-    public static final int OTHER_CATEGORY_ID = 999;
+    public static final int OTHER_CATEGORY_ID = 0;
 
     public static final int PAGE_NUM_DEFAULT = 1;
 

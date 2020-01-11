@@ -8,7 +8,6 @@ import com.yiseven.zhoudaxiao.mapper.ext.ProductEntityMapperExt;
 import com.yiseven.zhoudaxiao.service.CategoryService;
 import com.yiseven.zhoudaxiao.web.result.ProductResult;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

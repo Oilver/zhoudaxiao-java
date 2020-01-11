@@ -1,12 +1,9 @@
 package com.yiseven.zhoudaxiao.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * @author hdeng
- */
 public class ProductEntity {
-
     private Integer id;
 
     private String name;
@@ -17,13 +14,13 @@ public class ProductEntity {
 
     private String introduction;
 
-    private Double originalPrice;
+    private BigDecimal originalPrice;
 
-    private Double discountPrice;
+    private BigDecimal discountPrice;
 
-    private Double agentPrice;
+    private BigDecimal agentPrice;
 
-    private Double secondAgentPrice;
+    private BigDecimal secondAgentPrice;
 
     private Integer priority;
 
@@ -35,11 +32,11 @@ public class ProductEntity {
 
     private Integer monthlySales;
 
-    private Double freight;
+    private BigDecimal freight;
 
     private Integer stock;
 
-    private Integer isNew;
+    private Boolean isNew;
 
     private String createBy;
 
@@ -91,35 +88,35 @@ public class ProductEntity {
         this.introduction = introduction == null ? null : introduction.trim();
     }
 
-    public Double getOriginalPrice() {
+    public BigDecimal getOriginalPrice() {
         return originalPrice;
     }
 
-    public void setOriginalPrice(Double originalPrice) {
+    public void setOriginalPrice(BigDecimal originalPrice) {
         this.originalPrice = originalPrice;
     }
 
-    public Double getDiscountPrice() {
+    public BigDecimal getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(Double discountPrice) {
+    public void setDiscountPrice(BigDecimal discountPrice) {
         this.discountPrice = discountPrice;
     }
 
-    public Double getAgentPrice() {
+    public BigDecimal getAgentPrice() {
         return agentPrice;
     }
 
-    public void setAgentPrice(Double agentPrice) {
+    public void setAgentPrice(BigDecimal agentPrice) {
         this.agentPrice = agentPrice;
     }
 
-    public Double getSecondAgentPrice() {
+    public BigDecimal getSecondAgentPrice() {
         return secondAgentPrice;
     }
 
-    public void setSecondAgentPrice(Double secondAgentPrice) {
+    public void setSecondAgentPrice(BigDecimal secondAgentPrice) {
         this.secondAgentPrice = secondAgentPrice;
     }
 
@@ -163,11 +160,11 @@ public class ProductEntity {
         this.monthlySales = monthlySales;
     }
 
-    public Double getFreight() {
+    public BigDecimal getFreight() {
         return freight;
     }
 
-    public void setFreight(Double freight) {
+    public void setFreight(BigDecimal freight) {
         this.freight = freight;
     }
 
@@ -179,11 +176,11 @@ public class ProductEntity {
         this.stock = stock;
     }
 
-    public Integer getIsNew() {
+    public Boolean getIsNew() {
         return isNew;
     }
 
-    public void setIsNew(Integer isNew) {
+    public void setIsNew(Boolean isNew) {
         this.isNew = isNew;
     }
 
