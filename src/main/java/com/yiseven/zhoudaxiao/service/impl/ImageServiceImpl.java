@@ -66,8 +66,8 @@ public class ImageServiceImpl implements ImageService {
         imageEntity.setProductId(productId);
         imageEntity.setUrl(url + key);
         imageEntity.setBucketKey(key);
-        imageEntity.setIsCarousel(0);
-        imageEntity.setIsAvatar(0);
+        imageEntity.setIsCarousel(false);
+        imageEntity.setIsAvatar(false);
         imageEntity.setPriority(0);
         imageEntityMapperExt.insertSelective(imageEntity);
         return Response.createBySuccess(imageEntityMapperExt.queryListByProduct(productId));
@@ -118,14 +118,14 @@ public class ImageServiceImpl implements ImageService {
             imageEntity.setProductId(imageRequest.getProductId());
             imageEntity.setUrl(url + keys.get(i));
             imageEntity.setBucketKey(keys.get(i));
-            imageEntity.setIsCarousel(0);
+            imageEntity.setIsCarousel(false);
             imageEntity.setPriority(keys.size() - i);
             //如果不指定头像的key，默认为第一张图片
             if (i == 0 && StringUtils.isBlank(imageRequest.getAvatarKey())
                     || StringUtils.isNotBlank(imageRequest.getAvatarKey()) && imageRequest.getAvatarKey().equals(keys.get(i))) {
-                imageEntity.setIsAvatar(1);
+                imageEntity.setIsAvatar(true);
             } else {
-                imageEntity.setIsAvatar(0);
+                imageEntity.setIsAvatar(false);
             }
             imageEntityList.add(imageEntity);
         }
@@ -166,8 +166,8 @@ public class ImageServiceImpl implements ImageService {
         ImageEntity imageEntity = new ImageEntity();
         imageEntity.setUrl(url + key);
         imageEntity.setBucketKey(key);
-        imageEntity.setIsCarousel(1);
-        imageEntity.setIsAvatar(0);
+        imageEntity.setIsCarousel(true);
+        imageEntity.setIsAvatar(false);
         imageEntity.setPriority(0);
         imageEntityMapperExt.insertSelective(imageEntity);
         resetCarouselInRedis();

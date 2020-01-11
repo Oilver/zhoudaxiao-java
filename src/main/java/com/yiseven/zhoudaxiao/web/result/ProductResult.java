@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yiseven.zhoudaxiao.entity.ImageEntity;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -21,13 +22,13 @@ public class ProductResult {
 
     private String introduction;
 
-    private Double originalPrice;
+    private BigDecimal originalPrice;
 
-    private Double discountPrice;
+    private BigDecimal discountPrice;
 
-    private Double agentPrice;
+    private BigDecimal agentPrice;
 
-    private Double secondAgentPrice;
+    private BigDecimal secondAgentPrice;
 
     private Integer priority;
 
@@ -39,11 +40,11 @@ public class ProductResult {
 
     private Integer monthlySales;
 
-    private Double freight;
+    private BigDecimal freight;
 
     private Integer stock;
 
-    private Integer isNew;
+    private Boolean isNew;
 
     private String detail;
 

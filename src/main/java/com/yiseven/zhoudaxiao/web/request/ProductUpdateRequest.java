@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yiseven.zhoudaxiao.common.request.BaseRequest;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.math.BigDecimal;
 
 /**
  * @author hdeng
@@ -19,24 +18,24 @@ public class ProductUpdateRequest extends BaseRequest {
 
     private Integer categoryId;
 
-    private Double agentPrice;
+    private BigDecimal agentPrice;
 
-    private Double originalPrice;
+    private BigDecimal originalPrice;
 
-    private Double discountPrice;
+    private BigDecimal discountPrice;
 
     /**
-     * 优先级（用于首页今日推荐模块排序
+     * 优先级（用于首页今日推荐模块排序）
      */
     private Integer priority;
 
     private Integer pageviews;
 
-    private Double freight;
+    private BigDecimal freight;
 
     private Integer stock;
 
-    private Integer isNew;
+    private Boolean isNew;
 
     private String introduction;
 

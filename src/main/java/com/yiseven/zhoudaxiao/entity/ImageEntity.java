@@ -7,21 +7,13 @@ public class ImageEntity {
 
     private String url;
 
-    private String bucketKey;
+    private Boolean isCarousel;
 
-    private Integer isCarousel;
-
-    private Integer isAvatar;
+    private Boolean isAvatar;
 
     private Integer priority;
 
-    public String getBucketKey() {
-        return bucketKey;
-    }
-
-    public void setBucketKey(String bucketKey) {
-        this.bucketKey = bucketKey;
-    }
+    private String bucketKey;
 
     public Integer getId() {
         return id;
@@ -47,19 +39,19 @@ public class ImageEntity {
         this.url = url == null ? null : url.trim();
     }
 
-    public Integer getIsCarousel() {
+    public Boolean getIsCarousel() {
         return isCarousel;
     }
 
-    public void setIsCarousel(Integer isCarousel) {
+    public void setIsCarousel(Boolean isCarousel) {
         this.isCarousel = isCarousel;
     }
 
-    public Integer getIsAvatar() {
+    public Boolean getIsAvatar() {
         return isAvatar;
     }
 
-    public void setIsAvatar(Integer isAvatar) {
+    public void setIsAvatar(Boolean isAvatar) {
         this.isAvatar = isAvatar;
     }
 
@@ -69,5 +61,13 @@ public class ImageEntity {
 
     public void setPriority(Integer priority) {
         this.priority = priority;
+    }
+
+    public String getBucketKey() {
+        return bucketKey;
+    }
+
+    public void setBucketKey(String bucketKey) {
+        this.bucketKey = bucketKey == null ? null : bucketKey.trim();
     }
 }

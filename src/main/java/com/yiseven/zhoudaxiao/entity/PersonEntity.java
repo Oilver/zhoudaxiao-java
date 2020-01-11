@@ -1,15 +1,8 @@
 package com.yiseven.zhoudaxiao.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @author hdeng
- */
-public class UserEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class PersonEntity {
     private Integer id;
 
     private String username;
@@ -22,19 +15,11 @@ public class UserEntity implements Serializable {
 
     private Integer role;
 
-    private Integer status;
-
     private Date createDate;
 
     private Date lastUpdateDate;
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -98,5 +83,13 @@ public class UserEntity implements Serializable {
 
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

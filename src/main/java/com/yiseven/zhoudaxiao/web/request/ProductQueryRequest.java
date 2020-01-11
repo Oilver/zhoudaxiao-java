@@ -11,7 +11,7 @@ public class ProductQueryRequest {
 
     private Integer categoryId;
 
-    private Integer isNew;
+    private Boolean isNew;
 
     /**
      * 根据什么排序
