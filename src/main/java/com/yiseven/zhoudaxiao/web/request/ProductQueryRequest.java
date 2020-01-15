@@ -24,4 +24,6 @@ public class ProductQueryRequest {
     private String sortType;
 
     private Boolean showAll;
+
+    private String productName;
 }

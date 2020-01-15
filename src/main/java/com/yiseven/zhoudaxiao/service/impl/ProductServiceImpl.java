@@ -171,7 +171,7 @@ public class ProductServiceImpl implements ProductService {
         String sortType = StringUtils.isBlank(productQueryRequest.getSortType()) ? Const.SORT_TYPE_DEFAULT : productQueryRequest.getSortType();
         //So
         String orderBySortType = orderBy + " " + sortType;
-        List<ProductResult> list = productEntityMapperExt.queryProductList(productQueryRequest.getCategoryId(), productQueryRequest.getIsNew(), orderBySortType);
+        List<ProductResult> list = productEntityMapperExt.queryProductList(productQueryRequest.getCategoryId(), productQueryRequest.getIsNew(), productQueryRequest.getProductName(), orderBySortType);
         PageInfo<ProductResult> pageInfo = new PageInfo<>(list);
         return Response.createBySuccess(pageInfo);
     }
