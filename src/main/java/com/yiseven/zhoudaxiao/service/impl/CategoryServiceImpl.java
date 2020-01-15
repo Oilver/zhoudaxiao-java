@@ -45,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public Response deleteCategory(int id) {
-        List<ProductResult> productResults = productEntityMapperExt.queryProductList(id, null, null);
+        List<ProductResult> productResults = productEntityMapperExt.queryProductList(id, null, null,null);
         List<Integer> productIds = new ArrayList<>();
         productResults.forEach(item -> productIds.add(item.getId()));
         //删除某分类前先把该分类下的所有商品都放在“其他”里

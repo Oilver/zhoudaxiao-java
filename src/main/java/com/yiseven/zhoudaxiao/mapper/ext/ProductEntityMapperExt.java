@@ -14,6 +14,7 @@ public interface ProductEntityMapperExt extends ProductEntityMapper {
 
     List<ProductResult> queryProductList(@Param("categoryId") Integer categoryId,
                                          @Param("isNew") Boolean isNew,
+                                         @Param("productName") String productName,
                                          @Param("orderBySortType") String orderBySortType);
 
     int checkIsExist(String name);
