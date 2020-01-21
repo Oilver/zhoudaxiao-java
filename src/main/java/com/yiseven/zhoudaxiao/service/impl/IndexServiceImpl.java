@@ -6,8 +6,8 @@ import com.yiseven.zhoudaxiao.common.response.Response;
 import com.yiseven.zhoudaxiao.common.response.ResponseCode;
 import com.yiseven.zhoudaxiao.common.util.MD5Utils;
 import com.yiseven.zhoudaxiao.common.util.RedisUtil;
-import com.yiseven.zhoudaxiao.entity.UserEntity;
-import com.yiseven.zhoudaxiao.mapper.ext.UserEntityMapperExt;
+import com.yiseven.zhoudaxiao.entity.PersonEntity;
+import com.yiseven.zhoudaxiao.mapper.ext.PersonEntityMapperExt;
 import com.yiseven.zhoudaxiao.service.IndexService;
 import com.yiseven.zhoudaxiao.web.request.LoginRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -30,29 +30,29 @@ public class IndexServiceImpl implements IndexService {
     private RedisUtil redisUtil;
 
     @Resource
-    private UserEntityMapperExt userEntityMapperExt;
+    private PersonEntityMapperExt personEntityMapperExt;
 
     @Override
     public Response login(LoginRequest loginRequest) {
         loginRequest.setPassword(MD5Utils.getMd5Simple(loginRequest.getPassword()));
-        UserEntity userEntity = userEntityMapperExt.queryUser(loginRequest.getPhone());
-        if (userEntity == null) {
+        PersonEntity personEntity = personEntityMapperExt.queryPerson(loginRequest.getPhone());
+        if (personEntity == null) {
             return Response.createByErrorMessage("账户不存在");
         }
-        int count = userEntityMapperExt.queryUserByPassword(loginRequest.getPhone(), loginRequest.getPassword());
+        int count = personEntityMapperExt.queryPersonByPassword(loginRequest.getPhone(), loginRequest.getPassword());
         if (0 == count) {
             return Response.createByErrorMessage("密码错误");
         } else if (1 == count) {
-            if (Const.ACTIVE_STATUS != userEntity.getStatus()) {
+            if (Const.ACTIVE_STATUS != personEntity.getStatus()) {
                 return Response.createByErrorMessage("该账户还在审核...");
             }
             //同一个账号不同机器可同时登录
             String token = UUID.randomUUID().toString();
-            redisUtil.set(token, userEntity, SEVEN_DAY);
-            log.info("用户 {} 登录成功,token: {}", userEntity.getUsername(), token);
+            redisUtil.set(token, personEntity, SEVEN_DAY);
+            log.info("用户 {} 登录成功,token: {}", personEntity.getUsername(), token);
             return Response.createBySuccess("登录成功", token);
         } else {
-            ExceptionThrow.cast(ResponseCode.USER_WRONG, true);
+            ExceptionThrow.cast(ResponseCode.PERSON_WRONG, true);
         }
         return Response.createByErrorCode(ResponseCode.COMMON_ERROR);
     }

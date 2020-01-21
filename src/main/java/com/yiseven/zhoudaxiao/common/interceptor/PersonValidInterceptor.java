@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 @Component
 @Slf4j
-public class UserValidInterceptor implements HandlerInterceptor {
+public class PersonValidInterceptor implements HandlerInterceptor {
 
     @Autowired
     RedisUtil redisUtil;

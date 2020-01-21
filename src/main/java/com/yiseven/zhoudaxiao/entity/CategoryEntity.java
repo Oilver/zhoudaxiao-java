@@ -7,14 +7,6 @@ public class CategoryEntity {
 
     private Integer priority;
 
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -29,5 +21,13 @@ public class CategoryEntity {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 }

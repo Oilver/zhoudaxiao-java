@@ -8,7 +8,6 @@ import com.yiseven.zhoudaxiao.mapper.ext.ProductEntityMapperExt;
 import com.yiseven.zhoudaxiao.service.CategoryService;
 import com.yiseven.zhoudaxiao.web.result.ProductResult;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public Response deleteCategory(int id) {
-        List<ProductResult> productResults = productEntityMapperExt.queryProductList(id, null, null);
+        List<ProductResult> productResults = productEntityMapperExt.queryProductList(id, null, null,null);
         List<Integer> productIds = new ArrayList<>();
         productResults.forEach(item -> productIds.add(item.getId()));
         //删除某分类前先把该分类下的所有商品都放在“其他”里

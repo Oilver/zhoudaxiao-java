@@ -35,7 +35,7 @@ public class ScheduledConfig {
         //1.先查询数据库是否有垃圾数据，有就先删除
         imageEntityList.forEach(item -> {
             imageBucketKeys.add(item.getBucketKey());
-            if (0 == item.getIsCarousel() && null == item.getProductId()) {
+            if (!item.getIsCarousel() && null == item.getProductId()) {
                 deleteIds.add(item.getId());
             }
         });

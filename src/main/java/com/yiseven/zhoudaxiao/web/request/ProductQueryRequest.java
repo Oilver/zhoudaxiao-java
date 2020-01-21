@@ -2,8 +2,6 @@ package com.yiseven.zhoudaxiao.web.request;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-
 @Data
 public class ProductQueryRequest {
 
@@ -13,7 +11,7 @@ public class ProductQueryRequest {
 
     private Integer categoryId;
 
-    private Integer isNew;
+    private Boolean isNew;
 
     /**
      * 根据什么排序
@@ -24,4 +22,8 @@ public class ProductQueryRequest {
      * 降序还是升序
      */
     private String sortType;
+
+    private Boolean showAll;
+
+    private String productName;
 }
