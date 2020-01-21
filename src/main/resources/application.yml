@@ -9,4 +9,4 @@ mybatis:
 pagehelper:
   helper-dialect: mysql
   params: count=countSql
-  reasonable: true
+  reasonable: false
