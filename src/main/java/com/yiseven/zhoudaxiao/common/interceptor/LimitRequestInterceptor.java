@@ -34,8 +34,8 @@ public class LimitRequestInterceptor implements HandlerInterceptor {
 
         RedisAtomicInteger redisAtomicInteger = new RedisAtomicInteger(ip, redisTemplate.getConnectionFactory());
         int increment = redisAtomicInteger.getAndIncrement();
-        if (increment == 0) {//初始设置过期时间
-            redisAtomicInteger.expire(30, TimeUnit.SECONDS);
+        if (increment == 0) {//初始设置过期时间, 同一IP1秒内最多发起10次请求
+            redisAtomicInteger.expire(1, TimeUnit.SECONDS);
             return true;
         } else if (increment >= 10) {
             rejectAccess(response);
