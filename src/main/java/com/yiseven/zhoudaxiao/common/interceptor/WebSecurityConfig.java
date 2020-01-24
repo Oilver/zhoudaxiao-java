@@ -24,12 +24,17 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     );
 
     @Autowired
+    LimitRequestInterceptor limitRequestInterceptor;
+    @Autowired
     PersonValidInterceptor personValidInterceptor;
     @Autowired
     AddRecordValidInterceptor addRecordValidInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        InterceptorRegistration limitInterceptor = registry.addInterceptor(limitRequestInterceptor);
+        limitInterceptor.addPathPatterns("/**");
+
         InterceptorRegistration registration1 = registry.addInterceptor(personValidInterceptor);
         registration1.addPathPatterns("/**");
         registration1.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**")
