@@ -20,6 +20,7 @@ public enum ResponseCode {
     //自定义异常
     NEED_LOGIN(401, "请先登录"),
     HEADER_LACK(11, "缺少请求头部，请重新登录"),
+    REJECT_ACCESS(12,"限流操作——请求被拒绝访问"),
     RESULT_NULL(600, "结果为空"),
     DATABASE_ERROR(601, "数据库出错"),
     PARAM_WRONG(602, "参数有误"),
