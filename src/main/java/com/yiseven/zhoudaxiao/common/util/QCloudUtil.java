@@ -3,6 +3,7 @@ package com.yiseven.zhoudaxiao.common.util;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
+import com.qcloud.cos.model.COSObjectSummary;
 import com.qcloud.cos.model.DeleteObjectsRequest;
 import com.qcloud.cos.model.ObjectListing;
 import com.qcloud.cos.model.ObjectMetadata;
@@ -61,12 +62,19 @@ public class QCloudUtil {
         log.info("文件批量删除成功，keys： {}", keys);
     }
 
+    /**
+     * 查询除了文件夹为special的所有文件的key
+     *
+     * @return
+     */
     public List<String> queryAllBucketKeys() {
         ObjectListing objectListing = cosClient.listObjects(bucketName);
         List<String> bucketKeys = new ArrayList<>();
-        objectListing.getObjectSummaries().forEach(item -> {
-            bucketKeys.add(item.getKey());
-        });
+        for (COSObjectSummary cosObjectSummary : objectListing.getObjectSummaries()) {
+            if (!cosObjectSummary.getKey().contains("special/")) {
+                bucketKeys.add(cosObjectSummary.getKey());
+            }
+        }
         return bucketKeys;
     }
 }
