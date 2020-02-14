@@ -26,7 +26,7 @@ public class ScheduledConfig {
      * 设置定时任务删除云存储中冗余的图片（新增商品时上传了图片，但是放弃点击确认按钮导致的垃圾数据）
      * 项目启动后的30秒后执行，每隔5天执行一次
      */
-    @Scheduled(initialDelay = 30000, fixedDelay = 60000 * 24 * 5)
+    @Scheduled(initialDelay = 30000, fixedDelay = 60000 * 60 * 24 * 5)
     public void deleteInvalidImageInCloud() {
         log.info("定期删除垃圾数据 -- 定时任务启动...");
         List<ImageEntity> imageEntityList = imageEntityMapperExt.queryAll();
