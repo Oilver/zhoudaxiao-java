@@ -1,6 +1,7 @@
 package com.yiseven.zhoudaxiao.common.interceptor;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.util.concurrent.RateLimiter;
 import com.yiseven.zhoudaxiao.common.response.Response;
 import com.yiseven.zhoudaxiao.common.response.ResponseCode;
 import com.yiseven.zhoudaxiao.common.util.RedisUtil;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class LimitRequestInterceptor implements HandlerInterceptor {
+    RateLimiter rateLimiter = RateLimiter.create(50);
 
     @Autowired
     RedisUtil redisUtil;
@@ -30,6 +32,12 @@ public class LimitRequestInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+        //1.先判断是否有令牌
+        if (!rateLimiter.tryAcquire()){
+            rejectAccess(response);
+            return false;
+        }
+        //2.再判断是否该ip是否有权继续访问
         String ip = getIpAddress(request);
 
         RedisAtomicInteger redisAtomicInteger = new RedisAtomicInteger(ip, redisTemplate.getConnectionFactory());
