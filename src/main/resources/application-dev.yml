@@ -21,3 +21,6 @@ qcloud:
   region: ap-guangzhou
   bucketName: yiseven-dev-1300292849
   url: https://yiseven-dev-1300292849.cos.ap-guangzhou.myqcloud.com/
+
+swagger:
+  prefix:
