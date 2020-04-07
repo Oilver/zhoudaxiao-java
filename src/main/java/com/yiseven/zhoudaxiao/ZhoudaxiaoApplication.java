@@ -1,5 +1,6 @@
 package com.yiseven.zhoudaxiao;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,9 @@ public class ZhoudaxiaoApplication {
         SpringApplication.run(ZhoudaxiaoApplication.class, args);
     }
 
+    @Value("${swagger.prefix}")
+    private String prefix;
+
     @Bean
     public Docket createRestApi() {
         ParameterBuilder headers = new ParameterBuilder();
@@ -43,6 +47,8 @@ public class ZhoudaxiaoApplication {
                 .apis(RequestHandlerSelectors.basePackage("com.yiseven.zhoudaxiao.web"))
                 .paths(PathSelectors.any())
                 .build()
+                //下面这个设置就是在接口的path前加上project-name
+                .pathMapping(prefix)
                 .globalOperationParameters(pars);
     }
 
