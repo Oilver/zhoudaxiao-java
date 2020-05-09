@@ -39,6 +39,7 @@ public class AuthValidInterceptor implements HandlerInterceptor {
 
         final String authToken = request.getHeader(Const.ZHOUDAXIAO_AUTH);
         if (null == authToken) {
+            System.out.println(authToken);
             //缺少header
             needHeader(response);
             return false;
