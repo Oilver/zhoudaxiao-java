@@ -69,6 +69,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonEntity queryCurrentPerson(String token) {
+        // TODO: 2020/5/9  
         return (PersonEntity) redisUtil.get(token);
     }
 

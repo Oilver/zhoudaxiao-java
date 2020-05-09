@@ -30,7 +30,7 @@ public class IndexController {
 
     @PostMapping("logout")
     public Response logout(HttpServletRequest request) {
-        redisUtil.del(request.getHeader(Const.VALID_HEARER));
+        redisUtil.del(request.getHeader(Const.ZHOUDAXIAO_AUTH));
         return Response.createBySuccess();
     }
 }

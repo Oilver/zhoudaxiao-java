@@ -13,7 +13,7 @@ import com.yiseven.zhoudaxiao.service.ImageService;
 import com.yiseven.zhoudaxiao.web.request.ImageRequest;
 import com.yiseven.zhoudaxiao.web.result.ImageResult;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -59,7 +59,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Response uploadProductImage(MultipartFile multipartFile, Integer productId) throws IOException {
         ExceptionThrow.cast(ResponseCode.DATABASE_ERROR, null == productId);
-        String key = Const.PRODUCT_PRE + DateUtil.dateToString(new Date(), IMAGE_STYLE) + "-" + multipartFile.getOriginalFilename();
+        String key = Const.PRODUCT_PRE + DateUtil.formatDate(new Date(), IMAGE_STYLE) + "-" + multipartFile.getOriginalFilename();
         //上传图片
         qCloudUtil.upload(multipartFile.getInputStream(), key);
         ImageEntity imageEntity = new ImageEntity();
@@ -95,7 +95,7 @@ public class ImageServiceImpl implements ImageService {
         } else {
             prefix = "";
         }
-        String key = prefix + DateUtil.dateToString(new Date(), IMAGE_STYLE) + "-" + multipartFile.getOriginalFilename();
+        String key = prefix + DateUtil.formatDate(new Date(), IMAGE_STYLE) + "-" + multipartFile.getOriginalFilename();
         //上传图片
         qCloudUtil.upload(multipartFile.getInputStream(), key);
         ImageResult imageResult = new ImageResult();
@@ -160,7 +160,7 @@ public class ImageServiceImpl implements ImageService {
         if (list.size() >= CAROUSEL_NUMBER_MAX) {
             return Response.createByErrorMessage("轮播图的数量已满6张");
         }
-        String key = Const.CAROUSEL_PRE + DateUtil.dateToString(new Date(), IMAGE_STYLE) + "-" + multipartFile.getOriginalFilename();
+        String key = Const.CAROUSEL_PRE + DateUtil.formatDate(new Date(), IMAGE_STYLE) + "-" + multipartFile.getOriginalFilename();
         //上传图片
         qCloudUtil.upload(multipartFile.getInputStream(), key);
         ImageEntity imageEntity = new ImageEntity();

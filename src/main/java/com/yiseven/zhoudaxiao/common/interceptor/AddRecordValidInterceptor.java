@@ -25,7 +25,7 @@ public class AddRecordValidInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        PersonEntity personEntity = (PersonEntity) redisUtil.get(request.getHeader(Const.VALID_HEARER));
+        PersonEntity personEntity = (PersonEntity) redisUtil.get(request.getHeader(Const.ZHOUDAXIAO_AUTH));
         if (personEntity.getRole() == Const.ADMIN) {
             return true;
         }

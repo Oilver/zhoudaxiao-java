@@ -12,7 +12,7 @@ public class Const {
 
     public static final int ADMIN = 1;
 
-    public static final String VALID_HEARER = "token";
+    public static final String ZHOUDAXIAO_AUTH = "zhoudaxiao_auth";
 
     public static final int ACTIVE_STATUS = 1;
 

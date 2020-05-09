@@ -31,13 +31,13 @@ public class ProductController {
 
     @PostMapping("update")
     public Response updateProduct(@RequestBody ProductUpdateRequest productUpdateRequest, HttpServletRequest request) {
-        return productService.updateProduct(productUpdateRequest, request.getHeader(Const.VALID_HEARER));
+        return productService.updateProduct(productUpdateRequest, request.getHeader(Const.ZHOUDAXIAO_AUTH));
     }
 
     @ApiOperation("添加商品，包括商品的图片的key")
     @PostMapping("add")
     public Response addProduct(@Valid @RequestBody ProductInsertRequest productInsertRequest, HttpServletRequest request) {
-        return productService.addProduct(productInsertRequest, request.getHeader(Const.VALID_HEARER));
+        return productService.addProduct(productInsertRequest, request.getHeader(Const.ZHOUDAXIAO_AUTH));
     }
 
     @ApiOperation("查询商品详情")
