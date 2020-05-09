@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: live
+    active: @spring.profiles.active@
 
 mybatis:
   type-aliases-package: com.yiseven.zhoudaxiao.entity
