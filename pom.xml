@@ -28,8 +28,9 @@
         <model-map.version>1.1.0</model-map.version>
         <pagehelper.version>1.2.5</pagehelper.version>
         <fastjson.version>1.2.46</fastjson.version>
-        <common-lang.version>2.6</common-lang.version>
+        <commons-lang3.version>3.7</commons-lang3.version>
         <qcloud.version>5.6.8</qcloud.version>
+        <jwt.version>0.9.0</jwt.version>
         <skipTests>true</skipTests>
     </properties>
 
@@ -145,9 +146,9 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${common-lang.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <!-- 分页插件 -->
@@ -161,6 +162,12 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>23.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jwt.version}</version>
         </dependency>
     </dependencies>
 

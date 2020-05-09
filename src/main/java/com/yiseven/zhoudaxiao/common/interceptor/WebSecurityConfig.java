@@ -14,8 +14,7 @@ import java.util.List;
  */
 @Configuration
 public class WebSecurityConfig implements WebMvcConfigurer {
-    private static final List<String> EXCLUDE_APIS = Arrays.asList(
-            "/login", "/person/add",
+    public static final List<String> EXCLUDE_APIS = Arrays.asList(
             "/category/queryAll",
             "/image/queryCarousels",
             "/image/queryListByProduct",
@@ -26,7 +25,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Autowired
     LimitRequestInterceptor limitRequestInterceptor;
     @Autowired
-    PersonValidInterceptor personValidInterceptor;
+    AuthValidInterceptor authValidInterceptor;
     @Autowired
     AddRecordValidInterceptor addRecordValidInterceptor;
 
@@ -35,10 +34,10 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         InterceptorRegistration limitInterceptor = registry.addInterceptor(limitRequestInterceptor);
         limitInterceptor.addPathPatterns("/**");
 
-        InterceptorRegistration registration1 = registry.addInterceptor(personValidInterceptor);
+        InterceptorRegistration registration1 = registry.addInterceptor(authValidInterceptor);
         registration1.addPathPatterns("/**");
         registration1.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**")
-                .excludePathPatterns(EXCLUDE_APIS);
+                .excludePathPatterns(Arrays.asList("/login", "/person/add"));
 
 //        InterceptorRegistration registration2 = registry.addInterceptor(addRecordValidInterceptor);
 //        registration2.addPathPatterns("/record/add");

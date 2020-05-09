@@ -10,3 +10,8 @@ pagehelper:
   helper-dialect: mysql
   params: count=countSql
   reasonable: false
+
+jwt:
+  secret: injsuqyrbgo312ono23o79122         #jwt秘钥
+  expiration: 604800                        #7天 单位:秒
+  md5-key: niwe1i37*ne123$&#123ipoqinkdwe   #md5加密混淆key

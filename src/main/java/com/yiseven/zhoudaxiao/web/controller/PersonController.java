@@ -47,7 +47,7 @@ public class PersonController {
 
     @PostMapping("queryCurrentPerson")
     public Response queryCurrentPerson(HttpServletRequest request) {
-        PersonEntity personEntity = personService.queryCurrentPerson(request.getHeader(Const.VALID_HEARER));
+        PersonEntity personEntity = personService.queryCurrentPerson(request.getHeader(Const.ZHOUDAXIAO_AUTH));
         if (personEntity == null) {
             return Response.createByErrorCode(ResponseCode.NEED_LOGIN);
         }
