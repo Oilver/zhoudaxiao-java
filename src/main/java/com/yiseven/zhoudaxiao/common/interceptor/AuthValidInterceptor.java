@@ -1,10 +1,9 @@
 package com.yiseven.zhoudaxiao.common.interceptor;
 
-import com.alibaba.fastjson.JSON;
 import com.yiseven.zhoudaxiao.common.Const.Const;
-import com.yiseven.zhoudaxiao.common.response.Response;
 import com.yiseven.zhoudaxiao.common.response.ResponseCode;
 import com.yiseven.zhoudaxiao.common.util.JwtTokenUtil;
+import com.yiseven.zhoudaxiao.common.util.ToolUtil;
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +30,14 @@ public class AuthValidInterceptor implements HandlerInterceptor {
             //预检则不校验
             return false;
         }
-        //来自管理后台的所有请求都要校验
-        if ((null == request.getHeader("request-origin") || !"angular".equalsIgnoreCase(request.getHeader("request-origin")))
-                && WebSecurityConfig.EXCLUDE_APIS.contains(request.getServletPath())) {
+
+        final String origin = request.getHeader("request-origin");
+        //公用查询接口并且来源不是angular的直接通过，web端的所有请求都要校验（除了swagger和login）
+        if (!"angular".equalsIgnoreCase(origin) && WebSecurityConfig.EXCLUDE_APIS.contains(request.getServletPath())) {
             return true;
         }
 
         final String authToken = request.getHeader(Const.ZHOUDAXIAO_AUTH);
-        System.out.println(authToken);
-
         if (null == authToken) {
             //缺少header
             needHeader(response);
@@ -63,17 +61,11 @@ public class AuthValidInterceptor implements HandlerInterceptor {
 
     private void needLogin(HttpServletResponse response) throws IOException {
         log.error("未登录");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json; charset=utf-8");
-
-        response.getWriter().print(JSON.toJSONString(Response.createByErrorCode(ResponseCode.NEED_LOGIN)));
+        ToolUtil.writeServletResponseJson(response, ResponseCode.NEED_LOGIN);
     }
 
     private void needHeader(HttpServletResponse response) throws IOException {
         log.error("缺少token头部");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json; charset=utf-8");
-
-        response.getWriter().print(JSON.toJSONString(Response.createByErrorCode(ResponseCode.HEADER_LACK)));
+        ToolUtil.writeServletResponseJson(response, ResponseCode.HEADER_LACK);
     }
 }

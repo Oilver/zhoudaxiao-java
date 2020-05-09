@@ -42,5 +42,4 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 //        InterceptorRegistration registration2 = registry.addInterceptor(addRecordValidInterceptor);
 //        registration2.addPathPatterns("/record/add");
     }
-
 }

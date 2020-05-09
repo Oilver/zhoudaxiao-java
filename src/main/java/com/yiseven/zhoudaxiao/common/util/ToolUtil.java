@@ -15,8 +15,12 @@
  */
 package com.yiseven.zhoudaxiao.common.util;
 
+import com.alibaba.fastjson.JSON;
+import com.yiseven.zhoudaxiao.common.response.Response;
+import com.yiseven.zhoudaxiao.common.response.ResponseCode;
 import com.yiseven.zhoudaxiao.common.support.StrKit;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -38,6 +42,18 @@ import java.util.Set;
  * 高频方法集合类
  */
 public class ToolUtil {
+
+    /**
+     * 返回自定义的response的统一标准json体
+     * @param response
+     * @param responseCode
+     * @throws IOException
+     */
+    public static void writeServletResponseJson(HttpServletResponse response, ResponseCode responseCode) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json; charset=utf-8");
+        response.getWriter().print(JSON.toJSONString(Response.createByErrorCode(responseCode)));
+    }
 
     /**
      * 获取随机位数的字符串
