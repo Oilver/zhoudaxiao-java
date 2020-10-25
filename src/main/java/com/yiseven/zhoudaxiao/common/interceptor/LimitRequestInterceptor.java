@@ -33,7 +33,7 @@ public class LimitRequestInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         //1.先判断是否有令牌
-        if (!rateLimiter.tryAcquire()){
+        if (!rateLimiter.tryAcquire()) {
             rejectAccess(response);
             return false;
         }

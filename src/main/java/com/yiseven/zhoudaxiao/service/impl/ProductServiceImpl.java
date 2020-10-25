@@ -138,7 +138,7 @@ public class ProductServiceImpl implements ProductService {
         }
         //空值处理
         productResult.setOriginalPrice(productResult.getOriginalPrice() == null ? new BigDecimal(0) : productResult.getOriginalPrice());
-        productResult.setDiscountPrice(productResult.getDiscountPrice() == null ? new BigDecimal(0): productResult.getDiscountPrice());
+        productResult.setDiscountPrice(productResult.getDiscountPrice() == null ? new BigDecimal(0) : productResult.getDiscountPrice());
         productResult.setPageviews(productResult.getPageviews() == null ? 1 : productResult.getPageviews() + 1);
         //启动线程给浏览量加1
         executorPool.execute(() -> {

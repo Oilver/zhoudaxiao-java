@@ -9,6 +9,7 @@ import com.yiseven.zhoudaxiao.common.response.ResponseCode;
 public class ExceptionThrow {
     /**
      * 抛出自定义的异常
+     *
      * @param responseCode
      * @param condition
      */

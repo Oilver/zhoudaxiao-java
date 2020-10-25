@@ -16,6 +16,7 @@ public interface CategoryService {
 
     /**
      * 删除某分类前先把该分类下的所有商品都放在“其他”里
+     *
      * @param id
      * @return
      */

@@ -25,7 +25,7 @@
                 AND categoryId = #{categoryId}
             </if>
             <if test="productName != null">
-                AND  p.`name` like concat('%',#{productName},'%')
+                AND p.`name` like concat('%',#{productName},'%')
             </if>
         </where>
         <if test="orderBySortType != null">

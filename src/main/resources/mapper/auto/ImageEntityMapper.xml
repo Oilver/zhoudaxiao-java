@@ -1,117 +1,117 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yiseven.zhoudaxiao.mapper.auto.ImageEntityMapper" >
-  <resultMap id="BaseResultMap" type="com.yiseven.zhoudaxiao.entity.ImageEntity" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="productId" property="productId" jdbcType="INTEGER" />
-    <result column="url" property="url" jdbcType="CHAR" />
-    <result column="isCarousel" property="isCarousel" jdbcType="BIT" />
-    <result column="isAvatar" property="isAvatar" jdbcType="BIT" />
-    <result column="priority" property="priority" jdbcType="INTEGER" />
-    <result column="bucketKey" property="bucketKey" jdbcType="CHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, productId, url, isCarousel, isAvatar, priority, bucketKey
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from image
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from image
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.yiseven.zhoudaxiao.entity.ImageEntity" >
-    insert into image (id, productId, url, 
-      isCarousel, isAvatar, priority, 
-      bucketKey)
-    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{url,jdbcType=CHAR}, 
-      #{isCarousel,jdbcType=BIT}, #{isAvatar,jdbcType=BIT}, #{priority,jdbcType=INTEGER}, 
-      #{bucketKey,jdbcType=CHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.yiseven.zhoudaxiao.entity.ImageEntity" >
-    insert into image
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="productId != null" >
-        productId,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-      <if test="isCarousel != null" >
-        isCarousel,
-      </if>
-      <if test="isAvatar != null" >
-        isAvatar,
-      </if>
-      <if test="priority != null" >
-        priority,
-      </if>
-      <if test="bucketKey != null" >
-        bucketKey,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="productId != null" >
-        #{productId,jdbcType=INTEGER},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=CHAR},
-      </if>
-      <if test="isCarousel != null" >
-        #{isCarousel,jdbcType=BIT},
-      </if>
-      <if test="isAvatar != null" >
-        #{isAvatar,jdbcType=BIT},
-      </if>
-      <if test="priority != null" >
-        #{priority,jdbcType=INTEGER},
-      </if>
-      <if test="bucketKey != null" >
-        #{bucketKey,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yiseven.zhoudaxiao.entity.ImageEntity" >
-    update image
-    <set >
-      <if test="productId != null" >
-        productId = #{productId,jdbcType=INTEGER},
-      </if>
-      <if test="url != null" >
+<mapper namespace="com.yiseven.zhoudaxiao.mapper.auto.ImageEntityMapper">
+    <resultMap id="BaseResultMap" type="com.yiseven.zhoudaxiao.entity.ImageEntity">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="productId" property="productId" jdbcType="INTEGER"/>
+        <result column="url" property="url" jdbcType="CHAR"/>
+        <result column="isCarousel" property="isCarousel" jdbcType="BIT"/>
+        <result column="isAvatar" property="isAvatar" jdbcType="BIT"/>
+        <result column="priority" property="priority" jdbcType="INTEGER"/>
+        <result column="bucketKey" property="bucketKey" jdbcType="CHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, productId, url, isCarousel, isAvatar, priority, bucketKey
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from image
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from image
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.yiseven.zhoudaxiao.entity.ImageEntity">
+        insert into image (id, productId, url,
+        isCarousel, isAvatar, priority,
+        bucketKey)
+        values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{url,jdbcType=CHAR},
+        #{isCarousel,jdbcType=BIT}, #{isAvatar,jdbcType=BIT}, #{priority,jdbcType=INTEGER},
+        #{bucketKey,jdbcType=CHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.yiseven.zhoudaxiao.entity.ImageEntity">
+        insert into image
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="productId != null">
+                productId,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="isCarousel != null">
+                isCarousel,
+            </if>
+            <if test="isAvatar != null">
+                isAvatar,
+            </if>
+            <if test="priority != null">
+                priority,
+            </if>
+            <if test="bucketKey != null">
+                bucketKey,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=INTEGER},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=CHAR},
+            </if>
+            <if test="isCarousel != null">
+                #{isCarousel,jdbcType=BIT},
+            </if>
+            <if test="isAvatar != null">
+                #{isAvatar,jdbcType=BIT},
+            </if>
+            <if test="priority != null">
+                #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="bucketKey != null">
+                #{bucketKey,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yiseven.zhoudaxiao.entity.ImageEntity">
+        update image
+        <set>
+            <if test="productId != null">
+                productId = #{productId,jdbcType=INTEGER},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=CHAR},
+            </if>
+            <if test="isCarousel != null">
+                isCarousel = #{isCarousel,jdbcType=BIT},
+            </if>
+            <if test="isAvatar != null">
+                isAvatar = #{isAvatar,jdbcType=BIT},
+            </if>
+            <if test="priority != null">
+                priority = #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="bucketKey != null">
+                bucketKey = #{bucketKey,jdbcType=CHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yiseven.zhoudaxiao.entity.ImageEntity">
+        update image
+        set productId = #{productId,jdbcType=INTEGER},
         url = #{url,jdbcType=CHAR},
-      </if>
-      <if test="isCarousel != null" >
         isCarousel = #{isCarousel,jdbcType=BIT},
-      </if>
-      <if test="isAvatar != null" >
         isAvatar = #{isAvatar,jdbcType=BIT},
-      </if>
-      <if test="priority != null" >
         priority = #{priority,jdbcType=INTEGER},
-      </if>
-      <if test="bucketKey != null" >
-        bucketKey = #{bucketKey,jdbcType=CHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yiseven.zhoudaxiao.entity.ImageEntity" >
-    update image
-    set productId = #{productId,jdbcType=INTEGER},
-      url = #{url,jdbcType=CHAR},
-      isCarousel = #{isCarousel,jdbcType=BIT},
-      isAvatar = #{isAvatar,jdbcType=BIT},
-      priority = #{priority,jdbcType=INTEGER},
-      bucketKey = #{bucketKey,jdbcType=CHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        bucketKey = #{bucketKey,jdbcType=CHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

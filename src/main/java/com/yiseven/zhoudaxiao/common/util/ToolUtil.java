@@ -45,6 +45,7 @@ public class ToolUtil {
 
     /**
      * 返回自定义的response的统一标准json体
+     *
      * @param response
      * @param responseCode
      * @throws IOException
@@ -57,7 +58,6 @@ public class ToolUtil {
 
     /**
      * 获取随机位数的字符串
-     *
      */
     public static String getRandomString(int length) {
         String base = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -86,7 +86,6 @@ public class ToolUtil {
 
     /**
      * 获取异常的具体信息
-     *
      */
     public static String getExceptionMsg(Exception e) {
         StringWriter sw = new StringWriter();
@@ -425,7 +424,7 @@ public class ToolUtil {
      * map的key转为小写
      *
      * @param map
-     * @return Map<String , Object>
+     * @return Map<String, Object>
      */
     public static Map<String, Object> caseInsensitiveMap(Map<String, Object> map) {
         Map<String, Object> tempMap = new HashMap<>();
@@ -553,7 +552,6 @@ public class ToolUtil {
 
     /**
      * 把一个数转化为int
-     *
      */
     public static Integer toInt(Object val) {
         if (val instanceof Double) {

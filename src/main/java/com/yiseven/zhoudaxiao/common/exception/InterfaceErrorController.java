@@ -21,6 +21,7 @@ public class InterfaceErrorController implements ErrorController {
 
     /**
      * 处理404
+     *
      * @return
      */
     @RequestMapping(ERROR_PATH)

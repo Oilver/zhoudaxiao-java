@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by 邓锦辉
+ *
  * @author hdeng
  */
 public class Response<T> implements Serializable {
